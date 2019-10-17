@@ -67,6 +67,8 @@ public class SBPlatformDestination: BaseDestination {
     public var sendingFileURL = URL(fileURLWithPath: "")
     public var analyticsFileURL = URL(fileURLWithPath: "")
 
+    public var urlSessionDelegate: URLSessionDelegate? = nil
+
     private let minAllowedThreshold = 1  // over-rules SendingPoints.Threshold
     private let maxAllowedThreshold = 1000  // over-rules SendingPoints.Threshold
     private var sendingInProgress = false
@@ -280,7 +282,7 @@ public class SBPlatformDestination: BaseDestination {
 
             let session = URLSession(configuration:
                 URLSessionConfiguration.default,
-                delegate: nil, delegateQueue: operationQueue)
+                delegate: urlSessionDelegate, delegateQueue: operationQueue)
 
             toNSLog("assembling request ...")
 
